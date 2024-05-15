@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Component, default as React } from 'react';
+import Pagenation from './common/pagenation';
+class App extends Component {
+  state = { issueLength : 0 ,PageSize:5 ,CurrentPage:1 } 
+  handlePageChange = page => {
+    console.log(page);
+   
 }
-
+  modifyParameter = (newValue) => {
+    this.state.issueLength = newValue;
+  }; 
+  render() { 
+    return (
+    <div> 
+     <h1>{data.length} </h1>
+    <Pagenation  
+    TotalLength ={this.state.issueLength}
+    PageSize ={5}
+    CurrentPage = {1}
+    OnPageChange ={this.handlePageChange}/>
+    </div>);
+  }
+}
 export default App;
