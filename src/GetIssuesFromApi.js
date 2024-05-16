@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
+import Loading from './Loading';
 import Pagenation from './common/pagenation';
 
 function GetIssuesFromApi() { 
@@ -7,6 +8,7 @@ function GetIssuesFromApi() {
   const [userData,setUserData] = useState([null]);
   const [pageSize, setPageSize] = useState(5);
   const [currenctPage,setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchIssues();
@@ -15,7 +17,6 @@ function GetIssuesFromApi() {
     fetchUserData();
   }, []);
   useEffect(() => {
-    console.log('State updated:', currenctPage);
   }, [currenctPage]);
   const fetchIssues = async () => {
     try {
@@ -55,11 +56,14 @@ function GetIssuesFromApi() {
     return _(issues).slice(startIndex).take(pageSize).value();
  };
 const Paginateissues = paginate(issues,pageSize,currenctPage);
-  return(
+return(
     <div>
+      {!issues && ( 
+       loading ? <Loading /> : <div>Content loaded</div> ) }
         <h1 style={{textAlign:'center'}}> Gethub Issues </h1>
         <p  style={{textAlign:'center', color:'red'}}> Total Number of Issues is {issues.length} </p>
-<div className="card-group"> 
+        {issues && (
+        <div className="card-group"> 
 {Paginateissues.map(issue => (
     <div key = {issue.id} className="card">
     <img  className="card-img-top" src={userData.avatar_url} alt="Card image cap"/>
@@ -67,7 +71,7 @@ const Paginateissues = paginate(issues,pageSize,currenctPage);
         <h5 className="card-title">{issue.title}</h5><p  className="card-text"><small className="text-muted">{issue.id}</small></p>
     </div></div>
 ) )} 
-    </div> 
+    </div> )}
     <div style={{ marginTop: '10px' }} className="container d-flex justify-content-center align-items-center vh-50 " > 
     <Pagenation  
     TotalLength ={issues.length}
@@ -75,8 +79,7 @@ const Paginateissues = paginate(issues,pageSize,currenctPage);
     CurrentPage = {currenctPage}
     OnPageChange = {handlePageChange}/> 
 </div>
-
-    </div>
+</div>
 );
 }
 export default GetIssuesFromApi;

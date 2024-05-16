@@ -11,7 +11,7 @@ return(
     <ul className="pagination">
 {Pages.map(p=>
 
-  <li className={p === CurrentPage ? "page-item active" :  "page-item"}><a className="page-link" onClick={()=>OnPageChange(p)} >{p}</a></li>)}</ul>
+  <li key={p} className={p === CurrentPage ? "page-item active" :  "page-item"}><a className="page-link" onClick={()=>OnPageChange(p)} >{p}</a></li>)}</ul>
 </nav>)
 }
 export default Pagenation;

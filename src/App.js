@@ -13,7 +13,7 @@ class App extends Component {
     return (
     <div> 
      <h1>{data.length} </h1>
-    <Pagenation  
+    <Pagenation   
     TotalLength ={this.state.issueLength}
     PageSize ={5}
     CurrentPage = {1}
